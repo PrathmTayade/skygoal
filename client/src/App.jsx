@@ -1,53 +1,31 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
+import HomePage from "./pages/Home";
+import LoginPage from "./pages/Login";
+import ErrorPage from "./pages/Error";
+import SignUpPage from "./pages/SIgnUp";
 
 function App() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleLogin = async () => {
-    event.preventDefault();
-
-    const res = await fetch("http://localhost:5000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    });
-    console.log("submitted");
-    console.log(res.json());
-  };
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <HomePage />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "login",
+      element: <LoginPage />,
+    },
+    {
+      path: "signup",
+      element: <SignUpPage />,
+    },
+  ]);
 
   return (
-    <div>
-      <form action="" method="POST">
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            name="email"
-          />
-        </div>
-        <div>
-          <label htmlFor="password ">Password</label>
-          <input
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            name="password"
-          />
-        </div>
-        <button type="button" onClick={handleLogin}>
-          Login
-        </button>
-      </form>
-    </div>
+    <>
+      <RouterProvider router={router} />
+    </>
   );
 }
 
