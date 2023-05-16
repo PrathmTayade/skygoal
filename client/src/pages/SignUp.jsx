@@ -1,31 +1,51 @@
-
+import axios from "axios";
 import { useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const SignUpPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
   const handleSignUp = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:5000/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: name,
-        email: email,
-        password: password,
-      }),
-    });
-    console.log("signed up");
-    console.log(res.json());
+    try {
+      // send the credentials
+      const { data } = await axios.post(
+        import.meta.env.VITE_SERVER + "/signup",
+        {
+          name: name,
+          email: email,
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+
+      // toast the login
+      toast.success(data.message);
+
+      setTimeout(() => {
+        navigate("/");
+      }, 2500);
+    } catch (error) {
+      console.log(error)
+      await toast.error(error.response.data.message);
+    }
   };
 
   return (
     <main className="form-container">
+      <div>
+        <Toaster toastOptions={{ duration: 2000 }} />
+      </div>
       <h2>Signup</h2>
       <form onSubmit={handleSignUp}>
         <div className="form-group">

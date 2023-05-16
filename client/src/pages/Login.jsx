@@ -11,11 +11,10 @@ function LoginPage() {
     e.preventDefault();
 
     // axios implementation
-
     try {
       // send the credentials
       const { data } = await axios.post(
-        `${import.meta.env.SERVER}/login`,
+        import.meta.env.VITE_SERVER + "/login",
         {
           email: email,
           password: password,
@@ -33,7 +32,7 @@ function LoginPage() {
 
       setTimeout(() => {
         navigate("/");
-      }, 3000);
+      }, 2500);
     } catch (error) {
       toast.error(error.response.data.message);
     }
