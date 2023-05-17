@@ -4,6 +4,7 @@ import rootRouter from "./routes/root.js";
 import * as dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
 import cookieParser from "cookie-parser";
+import serverless from "serverless-http";
 
 const app = express();
 
@@ -29,3 +30,7 @@ connectDB();
 app.listen(process.env.PORT, () => {
   console.log(`Server started on ${process.env.PORT}`);
 });
+
+const handler = serverless(app);
+
+export default handler
