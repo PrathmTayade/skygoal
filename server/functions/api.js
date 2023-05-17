@@ -7,7 +7,7 @@ import cookieParser from "cookie-parser";
 import serverless from "serverless-http";
 
 const app = express();
-
+const router = express.Router();
 // Middlewares
 app.use(express.json());
 dotenv.config();
@@ -21,7 +21,8 @@ app.use(
 app.use(cookieParser());
 
 // Routes
-app.use("/.netlify/function/api", rootRouter);
+app.use("/", rootRouter);
+app.use("/.netlify/function/api", router);
 // Connect to Database
 connectDB();
 
