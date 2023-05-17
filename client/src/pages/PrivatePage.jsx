@@ -1,10 +1,11 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import "../App.css";
 import { Toaster, toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-export const PrivatePage = () => {
+
+const PrivatePage = () => {
   const [data, setData] = useState("");
   const [loading, setLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -74,3 +75,5 @@ export const PrivatePage = () => {
     </>
   );
 };
+
+export default PrivatePage;

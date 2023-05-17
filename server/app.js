@@ -17,7 +17,7 @@ app.use(
     credentials: true,
   })
 );
-app.use(cookieParser())
+app.use(cookieParser());
 
 // Routes
 app.use("/", rootRouter);

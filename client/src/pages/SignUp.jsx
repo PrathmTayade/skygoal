@@ -36,7 +36,7 @@ const SignUpPage = () => {
         navigate("/");
       }, 2500);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       await toast.error(error.response.data.message);
     }
   };
