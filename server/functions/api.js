@@ -4,6 +4,8 @@ import rootRouter from "./routes/root.js";
 import * as dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
 import cookieParser from "cookie-parser";
+import serverless from "serverless-http";
+import router from "./routes/root.js";
 
 const app = express();
 
@@ -21,7 +23,7 @@ app.use(cookieParser());
 
 // Routes
 app.use("/", rootRouter);
-
+app.use("/.netlify/function/api", router);
 // Connect to Database
 connectDB();
 
@@ -29,3 +31,7 @@ connectDB();
 app.listen(process.env.PORT, () => {
   console.log(`Server started on ${process.env.PORT}`);
 });
+
+const handler = serverless(app);
+
+export default handler;
