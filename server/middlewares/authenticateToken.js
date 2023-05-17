@@ -14,4 +14,4 @@ function authenticateToken(req, res, next) {
   req.user = decoded;
   next();
 }
-export default authenticateToken;
+export { authenticateToken };

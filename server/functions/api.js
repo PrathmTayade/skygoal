@@ -3,10 +3,12 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import { connectDB } from "../config/db.js";
 import cookieParser from "cookie-parser";
-import { serverless } from "serverless-http";
-import router from "../routes/root.js";
+import serverless from "serverless-http";
+import { rootRouter } from "../routes/root.js";
 
 const app = express();
+
+const router = express.Router();
 // Middlewares
 app.use(express.json());
 dotenv.config();
@@ -19,7 +21,8 @@ app.use(
 app.use(cookieParser());
 
 // Routes
-app.use("/.netlify/functions/api", router);
+app.use("/.netlify/functions/api", rootRouter);
+
 // Connect to Database
 connectDB();
 
@@ -28,6 +31,8 @@ app.listen(process.env.PORT, () => {
   console.log(`Server started on ${process.env.PORT}`);
 });
 
-const handler = serverless(app);
+const lambda = serverless(app);
 
-export default handler;
+export async function handler(event, context) {
+  return lambda(event, context);
+}

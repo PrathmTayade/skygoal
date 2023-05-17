@@ -1,4 +1,4 @@
-const logout = async(req, res) => {
+const logout = async (req, res) => {
   res
     .status(200)
     .cookie("access_token", "", {
@@ -7,4 +7,4 @@ const logout = async(req, res) => {
     .json({ message: "User Logged out" });
 };
 
-export default logout;
+export { logout };
