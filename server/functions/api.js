@@ -4,9 +4,8 @@ import * as dotenv from "dotenv";
 import { connectDB } from "../config/db.js";
 import cookieParser from "cookie-parser";
 import serverless from "serverless-http";
-
+import rootRouter from "../routes/root.js";
 const app = express();
-const router = express.Router();
 // Middlewares
 app.use(express.json());
 dotenv.config();
@@ -20,7 +19,7 @@ app.use(
 app.use(cookieParser());
 
 // Routes
-app.use("/.netlify/function/api", router);
+app.use("/.netlify/function/api", rootRouter);
 // Connect to Database
 connectDB();
 
