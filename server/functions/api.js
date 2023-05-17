@@ -1,13 +1,13 @@
 import express, { json } from "express";
 import cors from "cors";
-import rootRouter from "./routes/root.js";
+import rootRouter from "../routes/root.js";
 import * as dotenv from "dotenv";
-import { connectDB } from "./config/db.js";
+import { connectDB } from "../config/db.js";
 import cookieParser from "cookie-parser";
 import serverless from "serverless-http";
 
 const app = express();
-
+const router = express.Router();
 // Middlewares
 app.use(express.json());
 dotenv.config();
@@ -20,9 +20,9 @@ app.use(
 );
 app.use(cookieParser());
 
-// Routes
-app.use("/", rootRouter);
-app.use("/.netlify/function/api", router);
+// Routes for netlify site
+app.use("/.netlify/function/api", rootRouter);
+
 // Connect to Database
 connectDB();
 
@@ -33,4 +33,4 @@ app.listen(process.env.PORT, () => {
 
 const handler = serverless(app);
 
-export default handler
+export default handler;
