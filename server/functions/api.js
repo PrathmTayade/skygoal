@@ -5,7 +5,6 @@ import * as dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
 import cookieParser from "cookie-parser";
 import serverless from "serverless-http";
-import router from "./routes/root.js";
 
 const app = express();
 
@@ -34,4 +33,4 @@ app.listen(process.env.PORT, () => {
 
 const handler = serverless(app);
 
-export default handler;
+export default handler
