@@ -1,9 +1,13 @@
 import express from "express";
-import { signUp } from "../controllers/signup.js";
 import { authenticateToken } from "../middlewares/authenticateToken.js";
 import { getUserData } from "../controllers/getUserData.js";
 import { logout } from "../controllers/logout.js";
-import { login } from "../controllers/login.js";
+
+// testing 6
+import bcrypt from "bcryptjs";
+import User from "../models/user.js";
+import jwt from "jsonwebtoken";
+
 const router = express.Router();
 
 // login
