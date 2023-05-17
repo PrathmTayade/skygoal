@@ -1,6 +1,5 @@
 import express, { json } from "express";
 import cors from "cors";
-import rootRouter from "../routes/root.js";
 import * as dotenv from "dotenv";
 import { connectDB } from "../config/db.js";
 import cookieParser from "cookie-parser";
@@ -21,7 +20,6 @@ app.use(
 app.use(cookieParser());
 
 // Routes
-app.use("/", rootRouter);
 app.use("/.netlify/function/api", router);
 // Connect to Database
 connectDB();
