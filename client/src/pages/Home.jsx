@@ -1,5 +1,4 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -15,6 +14,11 @@ const HomePage = () => {
       <div>
         <button type="button" onClick={() => navigate("/signup")}>
           Signup
+        </button>
+      </div>
+      <div>
+        <button type="button" onClick={() => navigate("/protected")}>
+          User Page
         </button>
       </div>
     </div>

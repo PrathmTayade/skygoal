@@ -1,7 +1,6 @@
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -11,13 +10,17 @@ const login = async (req, res) => {
     // Find the user by email
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).json({ message: "User not found, please signup first" });
+      return res
+        .status(401)
+        .json({ message: "User not found, please signup first" });
     }
 
     // Compare passwords
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: "Please check your email or password" });
+      return res
+        .status(401)
+        .json({ message: "Please check your email or password" });
     }
 
     // Generate JWT token
@@ -27,7 +30,10 @@ const login = async (req, res) => {
       { expiresIn: "6h" }
     );
 
-    res.status(200).json({ message: "Login successful", token });
+    res
+      .status(200)
+      .cookie("access_token", token, { httpOnly: true, maxAge: 15 * 60 * 1000 })
+      .json({ message: "Login successful", token });
   } catch (error) {
     console.error("Error in login API:", error);
     res.status(500).json({ message: "Internal server error" });

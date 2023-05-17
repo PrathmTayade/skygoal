@@ -3,6 +3,7 @@ import cors from "cors";
 import rootRouter from "./routes/root.js";
 import * as dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(cookieParser())
 
 // Routes
 app.use("/", rootRouter);
