@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import User from "../models/user.js";
 
 const signUp = async (req, res) => {
@@ -6,7 +6,7 @@ const signUp = async (req, res) => {
     const { name, email, password } = req.body;
 
     console.log(req.body);
-    
+
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
