@@ -32,7 +32,12 @@ const login = async (req, res) => {
 
     res
       .status(200)
-      .cookie("access_token", token, { httpOnly: true, maxAge: 15 * 60 * 1000 })
+      .cookie("access_token", token, {
+        httpOnly: true,
+        maxAge: 15 * 60 * 1000,
+        sameSite: process.env.NODE_ENV === "Development" ? "lax" : "none",
+        secure: process.env.NODE_ENV === "Development" ? false : true,
+      })
       .json({ message: "Login successful", token });
   } catch (error) {
     console.error("Error in login API:", error);
